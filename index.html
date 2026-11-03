@@ -4,6 +4,62 @@
 @media(max-width:760px){main{padding:0 18px}header{height:86px}.brand{font-size:18px}.brand-icon{font-size:36px}.room-status{font-size:10px;max-width:140px;overflow-wrap:anywhere}.entry{grid-template-columns:1fr;gap:30px;padding:40px 0;min-height:auto}.entry h1{font-size:41px}.entry .intro{font-size:15px}.chess-art{display:none}.join{padding:24px}.club-heading{margin:34px 0 25px;align-items:flex-start;gap:15px}.club-heading h1{font-size:31px}.club-heading .eyebrow{font-size:8px;letter-spacing:1px}.club-heading p{font-size:12px}.club-heading button{font-size:11px;padding:12px;white-space:nowrap;margin-top:28px}.stats{grid-template-columns:1fr 1fr;gap:22px;padding:22px 0}.stats>div{padding:0 20px}.stats>div:nth-child(2){border:0}.stats strong{font-size:29px}.stats .leader{font-size:21px}.stats span{font-size:8px}nav{gap:18px}.card{padding:20px}h2{font-size:23px}.section-heading{align-items:flex-start}.section-heading .pill{display:none}.roster{grid-template-columns:1fr}.inline-form{gap:10px}.inline-form button{font-size:12px;padding:10px}.clocks{grid-template-columns:1fr;gap:15px}.clock{min-height:165px;padding:17px}.clock strong{font-size:65px;margin:8px 0}.clock:first-child{transform:rotate(180deg)}.presets{gap:5px}.presets button{padding:9px 4px}.presets b{font-size:15px}.player-picks{gap:10px}.player-picks select{font-size:13px;padding:10px 5px}.history article{align-items:flex-start}.history h3{font-size:14px}.score{margin:0 4px;padding:2px 8px}.history .danger{padding:8px}.section-heading>button{font-size:10px;padding:10px}.clock-actions button{font-size:12px;padding:12px}.custom{max-width:none}footer{gap:8px}footer button{font-size:10px}footer small{max-width:150px}.fine{font-size:10px}}
 
 [hidden]{display:none!important}summary{cursor:pointer;font-size:12px;color:#64744c;padding:8px 0}details p{font-size:12px!important}details input{font-size:12px}.narrow form>.primary{width:100%;margin-top:12px}.clock-focus header,.clock-focus .club-heading,.clock-focus .stats,.clock-focus nav,.clock-focus footer,.clock-focus #clock-settings,.clock-focus .fine{display:none}.clock-focus main{padding:15px;max-width:1250px}.clock-focus #clock{margin:0}.clock-focus .clock{min-height:50vh}.clock-focus .section-heading{margin-bottom:20px}@media(max-width:760px){.clock-focus .clock{min-height:30vh}.clock-focus .clock strong{font-size:75px}.clock-focus #clock{padding:15px}.clock-focus .section-heading h2{font-size:20px}.clock-focus .section-heading p{display:none}}
+
+/* Phone-first layout: readable standings, thumb-sized controls and a full-height clock. */
+html{ -webkit-text-size-adjust:100%;scroll-padding-bottom:100px }
+button,a,input,select{touch-action:manipulation}
+@media(max-width:760px){
+ body{overflow-wrap:anywhere}
+ main{width:100%;padding:0 14px calc(96px + env(safe-area-inset-bottom))}
+ header{gap:12px;padding-top:env(safe-area-inset-top);min-height:80px;height:auto}
+ .brand{font-size:17px;flex-shrink:0}.brand small{letter-spacing:2px}.room-status{min-width:0;max-width:45%;font-size:11px;text-align:right}
+ input,select,details input,.player-picks select{font-size:16px;min-height:48px}
+ button{min-height:46px}input[type=checkbox]{min-height:20px;min-width:20px}
+ .entry{padding:28px 0;gap:24px}.entry h1{font-size:35px;letter-spacing:-1.5px}.entry .eyebrow{margin-bottom:12px}.entry .intro{margin-bottom:0}
+ .entry>.fine{display:none}.join{padding:22px 18px}.join button{min-height:48px}
+ .club-heading{margin:26px 0 22px;display:block}.club-heading h1{font-size:32px}.club-heading>.primary{margin-top:16px;width:100%;font-size:14px}
+ .stats{gap:18px;margin-bottom:22px;padding:20px 0}.stats>div{min-width:0;padding:0 17px}.stats .leader{font-size:19px;margin-top:12px}.stats span{font-size:9px;letter-spacing:1px}
+ nav{position:fixed;z-index:30;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:0;margin:0;padding:5px 6px calc(5px + env(safe-area-inset-bottom));background:#fffefa;border-top:1px solid #dedfd4;border-bottom:0;box-shadow:0 -4px 18px #213c3010;overflow:visible}
+ nav button{min-width:0;min-height:58px;padding:5px 2px;white-space:normal;line-height:1.2;font-size:10px;border:0;border-radius:8px}
+ nav button::before{display:block;font-size:20px;line-height:1.2;margin-bottom:4px;font-family:Georgia,serif}
+ nav button[data-tab=leaderboard]::before{content:"♛"}
+ nav button[data-tab=clock]::before{content:"◷"}
+ nav button[data-tab=players]::before{content:"♟"}
+ nav button[data-tab=history]::before{content:"☷"}
+ nav button[data-tab=result]::before{content:"＋"}
+ nav button.selected{border:0;background:#e9eddf;color:#213c30}
+ .card{padding:20px 16px;border-radius:12px}.section-heading{gap:12px;margin-bottom:22px}.section-heading h2{font-size:23px}.section-heading p{font-size:12px}
+ .table-wrap{overflow:visible}table{white-space:normal}table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
+ table,table tbody{display:block;width:100%}table tbody{display:grid;gap:12px}
+ table tr{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:relative;background:#f7f8ef;border:1px solid #e0e5d6;border-radius:10px;padding:14px 10px 12px;gap:12px 4px}
+ table td{display:block;border:0;padding:0;text-align:center;font-size:16px;min-width:0}
+ table td.rank{position:absolute;top:21px;right:14px;width:auto;font-size:16px}
+ table td:nth-child(2){grid-column:1/-1;width:auto;display:flex;align-items:center;text-align:left;padding:0 32px 12px 2px;border-bottom:1px solid #e0e5d6;min-height:44px}
+ table td:nth-child(2) b{font-size:15px;overflow-wrap:anywhere}table .avatar{width:32px;height:32px;margin-right:9px}
+ table td:nth-child(n+3)::before{display:block;color:#7b8774;font-size:9px;letter-spacing:.4px;margin-bottom:5px;font-weight:400}
+ table td:nth-child(3)::before{content:"Played"}table td:nth-child(4)::before{content:"Wins"}table td:nth-child(5)::before{content:"Draws"}table td:nth-child(6)::before{content:"Losses"}table td:nth-child(7)::before{content:"Points"}
+ table td.points{font-size:19px;font-weight:700;color:#213c30}.new{font-size:9px;margin-left:6px}
+ .inline-form{display:block}.inline-form button{width:100%;margin-top:12px;font-size:14px}.person{padding:14px}
+ .player-picks{gap:10px}.player-picks label{min-width:0}.custom{gap:12px}.custom label{min-width:0}
+ .history article{display:block}.history .danger{margin-top:10px;min-width:100px}.history h3{line-height:2}.history .score{margin:0 7px}
+ .presets{flex-wrap:wrap;gap:6px}.presets button{flex:1 1 28%;min-height:58px}.presets b{font-size:17px}
+ .clock-card .section-heading{align-items:center}.clock-card .section-heading>button{font-size:11px;min-width:90px}
+ .clock{min-height:175px}.clock span{font-size:12px;line-height:1.5;max-width:100%}.clock strong{font-size:clamp(60px,17vw,88px)}
+ .clock-actions{gap:8px;margin-top:18px}.clock-actions button{flex:1 1 42%;font-size:13px;min-height:48px}
+ footer{flex-wrap:wrap;gap:8px;margin-top:26px}footer>span{flex-basis:100%;margin-bottom:6px}footer button{padding:10px 8px;font-size:12px}
+ .clock-focus main{padding:max(8px,env(safe-area-inset-top)) 8px max(8px,env(safe-area-inset-bottom))}
+ .clock-focus #clock{min-height:calc(100svh - 16px - env(safe-area-inset-top) - env(safe-area-inset-bottom));padding:14px;display:flex;flex-direction:column;gap:12px}
+ .clock-focus .section-heading{margin:0;flex:none}.clock-focus .section-heading h2{margin:0;font-size:22px}
+ .clock-focus .clocks{flex:1;grid-template-columns:1fr;grid-template-rows:repeat(2,minmax(145px,1fr));gap:14px}
+ .clock-focus .clock{min-height:0;padding:15px}.clock-focus .clock strong{font-size:clamp(62px,18vw,100px)}
+ .clock-focus .clock-actions{flex:none;margin-top:0}.clock-focus .clock-actions button{min-height:46px}
+ .clock-focus .finish{margin-top:0;padding:16px}.clock-focus #message{margin:8px 0}
+}
+@media(max-width:760px) and (orientation:landscape){
+ .clock-focus .clocks{grid-template-columns:1fr 1fr;grid-template-rows:minmax(140px,1fr)}
+ .clock-focus .clock strong{font-size:clamp(52px,12vw,80px)}
+ .clock-focus .clock-actions button{flex:0 1 auto}
+}
 </style></head>
 <body><main><header><a class="brand" href="#"><span class="brand-icon">♞</span><span>CHESS<span class="brand-thin">CLUB</span><small>EVERY MOVE COUNTS</small></span></a><div class="room-status"><i id="connection-dot"></i><span id="connection">Your next move starts here</span></div></header>
 <section id="welcome" class="entry"><div><p class="eyebrow">GOOD COMPANY. GREAT GAMES.</p><h1>A little rivalry.<br><em>A lot of chess.</em></h1><p class="intro">Your club’s leaderboard, match history and chess clock. One shared space for everyone at the table.</p><div class="chess-art" aria-hidden="true">♜ <span>♞</span> ♟</div><p class="fine">Play on your board. Keep the score here.</p></div><form id="join-form" class="card join"><p class="eyebrow">WELCOME TO THE CLUB</p><h2>Take your seat.</h2><p>Create a club once, then share its name and passcode with your players.</p><details id="setup"><summary>Shared connection settings</summary><p>Use the same settings as your coffee app. Only use a publishable or legacy anon key.</p><label>Supabase project URL<input id="url" type="url" placeholder="https://your-project.supabase.co"></label><label>Publishable / anon key<input id="key" type="password" autocomplete="off" placeholder="sb_publishable_… or eyJ…"></label></details><label>Club name<input id="room" pattern="[a-zA-Z0-9-]{3,40}" placeholder="e.g. lunchtime-chess" required></label><label>Shared passcode<input id="pass" type="password" minlength="8" maxlength="64" autocomplete="current-password" placeholder="At least 8 characters" required></label><label class="check"><input id="remember" type="checkbox">Remember passcode on this device</label><div id="join-error" class="error" role="alert" hidden></div><button class="primary" type="submit" data-busy>Join club →</button><button id="create" type="button" data-busy>Create a new club</button><button id="local" type="button">Try on this device</button><small>Shared mode needs the included SQL setup once. Everyone with the passcode can add players and correct results. Device-only mode does not sync.</small></form></section>
