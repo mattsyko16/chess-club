@@ -1,53 +1,42 @@
-# Chess Club
+# SEO Chess Club
 
-A shared leaderboard, player list, match history and two-player speed-chess clock for games on a physical board. No online chessboard is included.
+Live app: https://mattsyko16.github.io/chess-club/
 
-## Ready-to-use connection — updated 3 November 2026
+A dedicated shared club app. Open the same permanent URL on any device and enter the existing shared passcode. There is no club creation, club-name selector, or separate device-only board. Existing saved logins for SEO Chess Club continue to work.
 
-The chess SQL has already been installed in your existing coffee-round-tracker Supabase project. Its public connection settings are prefilled in this version. You do not need to run the SQL or copy an API key.
+## Use
 
-Upload `index.html` to a separate GitHub Pages repository, open its published URL, choose your club name and passcode, and click **Create a new club**. Then add players and use **Copy club invite**. Send the passcode separately. Other players choose **Join club**.
-
-## Get started on this device
-
-Open `index.html` in your browser and choose **Try on this device**. Add players and record results. This mode stores data in that browser only; it is clearly labelled and does not sync.
-
-## Manual shared setup — only for a different Supabase project
-
-1. In your Supabase project (the coffee app project is fine), open **SQL Editor**, paste the complete `supabase-chess-setup.sql` and run it once. It creates a separate chess table and function; it does not change coffee data.
-2. Put `index.html` in a separate GitHub repository and enable GitHub Pages from the main branch/root. Do not replace your coffee app homepage.
-3. Open the published chess URL. Expand **Shared connection settings**. Enter the Supabase project URL and its **publishable key** or legacy **anon key**. Never use a secret or service-role key.
-4. Choose a club name (3–40 letters, numbers or hyphens) and a unique shared passcode (at least 8 characters; maximum 64 bytes). Choose **Create a new club** once.
-5. Add players. Use **Copy club invite** to share the app link and prefilled connection settings. Give your players the passcode separately. They select **Join club**.
-
-The invite contains the public connection key, project URL and club name. It does not contain the passcode. Players do not need Supabase accounts or individual logins. Anyone with the club credentials can add players, add results and remove mistaken results. Remembering the passcode stores it on that device; use only on a trusted device. Club passcodes are hashed in the database. There is no passcode recovery feature in this version.
-
-## Leaderboard
-
-- Win: 1 point. Draw: 0.5 points. Loss: 0 points.
-- Sort: points, wins, fewer losses, then name alphabetically.
-- History records White/Black, result, date and time control. Remove an incorrect result and enter its replacement.
-- Shared results refresh every five seconds. Conflicting updates are rejected and refreshed instead of overwriting another player's change. Retry your action after a conflict message.
-- Results export as a CSV for Excel. This is a results export, not an import/restore feature.
+- Add players under Players.
+- Record White wins, Black wins or Draw to update the shared leaderboard.
+- Win = 1 point, draw = 0.5, loss = 0. Ties sort by wins, fewer losses, then name.
+- All devices use the same player list and history; shared changes refresh every five seconds.
+- Copy app link shares the permanent URL without version parameters or credentials.
 
 ## Clock
 
-Choose White and Black, select a preset or custom minutes/increment, then Start. White moves first. After moving, tap your own large clock to stop it and start the opponent's. The increment is added after each completed turn. Pause/resume, focus mode, reset and timeout indication are included. On narrow screens, White's panel is rotated to face the opposite player.
+Choose White/Black, then choose:
 
-One device controls the clock. The live clock is not shared across devices. Keep the page open and device unlocked; wake lock is requested when supported. Refreshing or closing the page loses an unfinished clock game. The app warns before leaving while a game is unfinished. Timeouts stop at zero; confirm a win or draw based on the position. The app never automatically awards or saves a timeout win.
+- **Time for the whole game**: 1–180 minutes per player, with a 0–60 second increment after a completed move.
+- **Maximum time per move**: 1–3600 seconds per move. Each turn starts with a fresh allowance; unused seconds are discarded. Pause preserves the current turn's remaining time.
 
-After pausing or a timeout, select White wins / Draw / Black wins to save the match and update the shared leaderboard. A clock game's result is saved at most once, even if its save is retried. Reset for the next game.
+Tap your own clock after moving. White starts. Timeouts stop at zero and require a confirmed game result; no win is awarded automatically.
 
-## Included files
+Reset uses an in-app confirmation instead of a browser pop-up. It pauses while you decide; Keep playing resumes the same player with the same remaining time. Reset game clears the unfinished game without recording a result. New game after a saved result needs no extra confirmation. Reset is blocked while a result save is in progress.
 
-- `index.html`: complete app; no build tools or JavaScript libraries required.
-- `supabase-chess-setup.sql`: run once to enable shared clubs.
-- `README.md`: these instructions.
+Focus mode makes the two clock targets fill the visible page. Portrait stacks the two panels and rotates White for the opposite player. Landscape uses side-by-side panels. Pause/reset controls float over the divider; Exit focus is always available. Browser address bars remain controlled by the browser.
 
-## Validation and limits
+Keep the page open and the phone unlocked while timing a game. Supported browsers receive a screen wake-lock request. Refreshing or closing the page discards an unfinished clock game.
 
-The JavaScript was syntax-checked, and local player/result flows, leaderboard calculations, clock switching, increment, pause and timeout behaviour were checked with a simulated DOM and clock. The Supabase SQL is installed and tested in your live project under the anonymous role used by the app: club creation, incorrect-passcode rejection, club isolation, duplicate player names, stale updates, invalid matches, result saving, duplicate prevention, corrections and table permissions passed. Test data was rolled back. Your existing coffee and race records were not changed.
+## Stress checks
 
-The database security review reports the intentional public RPC and deny-by-default table design: players can call the passcode-protected club function but cannot read the table directly. See [Supabase's function access advisory](https://supabase.com/docs/guides/database/database-linter?lint=0028_anon_security_definer_function_executable) and [RLS without policies advisory](https://supabase.com/docs/guides/database/database-linter?lint=0008_rls_enabled_no_policy). These settings implement the shared-passcode access model.
+Run `node stress-test.mjs` from this directory. It uses only Node's built-in filesystem support and runs the embedded production app against a deterministic mock DOM/clock/network.
 
-The browser preview could not connect to the local server, so visual and real-device checks remain outstanding. Automatic hosting was blocked by this session's network access, so the frontend still needs to be uploaded to GitHub Pages.
+Passed 12,138 assertions across 8,000 turn changes, 100 reset cycles, increments, expiry boundaries, invalid settings, both timer modes, pause/cancel, storage denial, HTML escaping, save-in-flight protection, double saves, lost responses, retries and timeout recovery.
+
+Live PostgreSQL checks passed 100 result writes with mixed time controls, version checks, duplicate prevention, stale writes, invalid games, passcodes, corrections and anonymous table isolation. That batch was rolled back. A separate two-client fixture reached exactly one result/version increment; it is isolated from SEO Chess Club. Its database-row cleanup requires an interactive SQL confirmation and was not completed.
+
+SEO Chess Club retained its five players and zero games during these tests. Phone rendering and interaction checks are tracked separately from logic tests; browser emulation does not replace testing on a real handset.
+
+## Database
+
+The chess function and table are already installed in the coffee-round-tracker Supabase project. The included SQL is a reference for a separate installation; do not rerun it for normal use. Frontend configuration contains only the publishable key. Direct table reads are denied; the RPC checks the shared club passcode.
