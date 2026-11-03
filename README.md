@@ -35,7 +35,7 @@ Passed 12,138 assertions across 8,000 turn changes, 100 reset cycles, increments
 
 Live PostgreSQL checks passed 100 result writes with mixed time controls, version checks, duplicate prevention, stale writes, invalid games, passcodes, corrections and anonymous table isolation. That batch was rolled back. A separate two-client fixture reached exactly one result/version increment; it is isolated from SEO Chess Club. Its database-row cleanup requires an interactive SQL confirmation and was not completed.
 
-SEO Chess Club retained its five players and zero games during these tests. Phone rendering and interaction checks are tracked separately from logic tests; browser emulation does not replace testing on a real handset.
+SEO Chess Club retained its five players and zero games during these tests. Browser interaction tests also passed reset/cancel/resume, reset from focus mode, fresh per-move allowances, 1-second expiry, result saving and New game. Focus-panel dimensions were verified at 320×568, 390×844, 430×932 and 844×390: each panel occupies exactly half the available screen. Tests used an isolated page with simulated players; that page was removed afterwards. Browser emulation does not replace testing on a real handset.
 
 ## Database
 
