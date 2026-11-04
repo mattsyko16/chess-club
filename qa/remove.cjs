@@ -1,0 +1,23 @@
+const {chromium}=require('playwright'),fs=require('node:fs'),assert=require('node:assert/strict');
+(async()=>{
+const b=await chromium.launch({headless:true,...(process.env.CHESS_BROWSER_PATH?{executablePath:process.env.CHESS_BROWSER_PATH,args:['--no-sandbox','--single-process','--disable-gpu','--disable-software-rasterizer','--disable-webgl','--in-process-gpu','--no-zygote']}: {})});
+const p=await b.newPage({viewport:{width:390,height:844},hasTouch:true});const errors=[];p.on('pageerror',e=>errors.push(e.message));
+await p.setContent(fs.readFileSync(__dirname+'/../index.html','utf8'));
+await p.evaluate(async()=>{state={players:[{id:'a',name:'Alpha'},{id:'b',name:'Beta'}],games:[]};local=true;enter();await mutate('result',{id:'regression-remove',white:'a',black:'b',result:'white',control:'Test',reason:'Test'});switchTab('history');});
+assert(await p.locator('[data-delete]').isEnabled(),'Remove must be enabled after saving a result');
+await p.locator('[data-delete]').tap();assert(await p.locator('#confirm-overlay').isVisible());
+await p.locator('#confirm-cancel').tap();assert(await p.locator('[data-delete]').count()===1,'Cancel keeps result');
+await p.locator('[data-delete]').tap();await p.locator('#confirm-accept').tap();
+assert.equal(await p.locator('[data-delete]').count(),0,'Confirmed result removed from history');
+assert(await p.evaluate(()=>state.games.length===0&&standings().every(x=>x.points===0)),'Leaderboard recalculated');
+await p.evaluate(async()=>{local=true;await mutate('result',{id:'network-remove',white:'a',black:'b',result:'black',control:'Test',reason:'Test'});local=false;auth={...DEFAULT_CONNECTION,room:CLUB_ROOM,pass:'test-passcode'};window.fetch=()=>new Promise(resolve=>window.releaseDelete=()=>resolve({ok:false,json:async()=>({message:'Connection failed test'})}));});
+await p.locator('[data-delete]').tap();await p.locator('#confirm-accept').tap();
+assert(await p.locator('[data-delete]').isDisabled(),'Pending delete disabled');
+await p.evaluate(()=>window.releaseDelete());await p.waitForFunction(()=>!busy);
+assert(await p.locator('[data-delete]').isEnabled(),'Failed delete becomes retryable');
+assert(await p.evaluate(()=>state.games.length===1&&$('message').textContent.includes('Connection failed')),'Failed delete keeps result and explains error');
+await p.evaluate(()=>{window.fetch=async()=>({ok:true,json:async()=>({state:{...state,games:[]},version:version+1})});});
+await p.locator('[data-delete]').tap();await p.locator('#confirm-accept').tap();await p.waitForFunction(()=>!busy);
+assert.equal(await p.locator('[data-delete]').count(),0,'Shared delete retry removes result');
+assert.deepEqual(errors,[]);console.log('PASS mobile save → remove → cancel → confirm; pending/error/retry paths; history and points corrected');await b.close();
+})().catch(e=>{console.error(e);process.exit(1)});

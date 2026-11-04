@@ -33,3 +33,9 @@ node qa/layout.cjs
 These are functional, edge-case and bounded data-volume checks, not a sustained load test or penetration test. The data-volume case tests rendering/scoring in memory, not 2,000 live writes. Stale-client protection was tested, not a large concurrent traffic run. The layout tests use Chromium emulation, not a physical iPhone or Safari. Screen locking, suspended tabs and wake-lock behaviour still depend on the real device. Keep the app open and unlocked during a clock game; unfinished clocks do not survive reloading.
 
 The shared passcode model gives every member permission to edit results; it has no separate administrator role or application-level passcode attempt rate limiter. The Supabase advisor flags the public SECURITY DEFINER function: public execution is intentional for this design, with a password check and empty search path inside the function. Direct table access is denied. This is not a claim that the entire shared Supabase project is free of warnings; other apps were not changed.
+
+## v1.0.7 regression — Remove buttons after saving
+
+The previous suites tested result deletion directly, but missed tapping the actual Remove button immediately after a save. That sequence reproduced a disabled-button failure: rendering during a mutation set Remove to disabled and the busy-state cleanup did not re-enable it. Busy-state cleanup now includes result removal buttons.
+
+`node qa/remove.cjs` tests the mobile touch flow: save, open History, Remove, cancel, Remove, confirm, recalculate points. It also checks that a pending shared delete is disabled, a failed delete retains its result and becomes retryable, and a successful retry removes it. Network responses are simulated; no real results are deleted. This regression failed before the fix and passes after it. The 23 clock and 28 DOM/network checks were rerun and passed.
