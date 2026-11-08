@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#213c30"><meta name="application-version" content="1.0.0"><meta name="apple-mobile-web-app-capable" content="yes"><title>Ad hoc Chess Clock</title><style>:root{color-scheme:light;--ink:#213c30;--paper:#f5f3eb;--line:#d8dfce}*{box-sizing:border-box}[hidden]{display:none!important}body{margin:0;background:var(--paper);color:var(--ink);font:16px system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}main{max-width:850px;margin:auto;padding:22px 18px 36px}header{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:24px}h1{margin:0;font:32px Georgia,serif}header p{margin:7px 0 0;font-size:13px;color:#657260}button,input,select{font:inherit;touch-action:manipulation}button{cursor:pointer;border:1px solid var(--line);border-radius:10px;padding:12px 16px;min-height:48px;color:var(--ink);background:#fffefa}button:hover{background:#e8eddf}button:disabled{cursor:default;opacity:.5}.primary{color:#fffefa;background:var(--ink);border-color:var(--ink)}.primary:hover{background:#34523d}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid #96af4a;outline-offset:3px}.card{border:1px solid var(--line);border-radius:16px;background:#fffefa;padding:22px}label{display:block;font-size:13px;font-weight:650;margin-bottom:18px}input,select{width:100%;min-height:48px;margin-top:8px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#fffefa;color:var(--ink)}.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}.presets{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}.presets button{flex:1;padding:10px;white-space:nowrap}.fine{font-size:13px;color:#61705d;line-height:1.6;margin:0 0 18px}.clocks{display:grid;grid-template-columns:1fr 1fr;gap:14px}.clock{border:3px solid transparent;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:220px;background:#e9eddf;color:var(--ink);user-select:none;-webkit-user-select:none}.clock:disabled{opacity:1}.clock.dark{color:#fffefa;background:#263d32}.clock.running{border-color:#92ad44;background:#e0edc7;box-shadow:0 0 0 2px #92ad44}.clock.dark.running{background:#34523d}.clock.flagged{background:#f0d7ca;color:#994c33}.clock span{font-size:14px;overflow-wrap:anywhere;max-width:100%}.clock strong{font-size:clamp(50px,10vw,80px);line-height:1.2;margin:18px 0;font-variant-numeric:tabular-nums;font-weight:650}.clock small{font-size:10px;letter-spacing:1px;opacity:.8}.actions{display:flex;justify-content:center;flex-wrap:wrap;gap:9px;margin-top:18px}.actions button{flex:1 1 auto}.game-timer{display:flex;align-items:center;justify-content:center;gap:10px;background:#edf1e3;border-radius:10px;padding:10px;margin-bottom:14px;font-variant-numeric:tabular-nums}.game-timer span{font-size:11px;letter-spacing:1px}.game-timer b{font-size:24px}.game-timer.expired{background:#f0d7ca;color:#994c33}.error,.success{padding:14px;border-radius:10px;line-height:1.5;margin:14px 0}.error{background:#f6e6dd;color:#934a32}.success{background:#e6efda;color:#405e32}details{margin-top:22px;line-height:1.7;color:#52634f}summary{cursor:pointer;font-weight:700;color:var(--ink)}details p{margin:12px 0}.confirm-overlay{position:fixed;inset:0;z-index:100;background:#13291fcc;display:flex;align-items:center;justify-content:center;padding:20px}.confirm-box{max-width:440px;width:100%;background:#fffefa;border-radius:16px;padding:25px}.confirm-box h2{margin-top:0}.confirm-box p{line-height:1.6}.confirm-actions{display:flex;gap:10px}.confirm-actions button{flex:1}footer{margin-top:22px;font-size:12px;color:#61705d;display:flex;gap:12px;justify-content:space-between;align-items:center}.clock-focus{overflow:hidden;overscroll-behavior:none}.clock-focus header,.clock-focus #clock-settings,.clock-focus details,.clock-focus footer{display:none}.clock-focus main{padding:0;max-width:none}.clock-focus #clock{position:fixed;inset:0;height:100dvh;border:0;border-radius:0;padding:0}.clock-focus .clocks{position:absolute;inset:0;grid-template-columns:1fr;grid-template-rows:1fr 1fr;gap:0}.clock-focus .clock{border-radius:0;height:100%;min-height:0;padding:25px 15px;box-shadow:none}.clock-focus .clock:first-child{transform:rotate(180deg)}.clock-focus .clock strong{font-size:clamp(60px,21vmin,160px)}.clock-focus .clock span{font-size:clamp(12px,2.6vmin,22px)}.clock-focus #focus-clock{position:fixed;top:max(10px,env(safe-area-inset-top));right:max(10px,env(safe-area-inset-right));z-index:40;border-radius:24px;min-height:44px;font-size:12px;padding:9px 13px;background:#fffefae8}.clock-focus .game-timer{position:fixed;top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));z-index:40;margin:0;padding:8px 10px;gap:7px;background:#fffefae8}.clock-focus .game-timer b{font-size:20px}.clock-focus .game-timer span{font-size:9px}.clock-focus .actions{position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);z-index:40;margin:0;flex-wrap:nowrap;max-width:calc(100% - 16px);width:max-content;gap:5px;padding:5px;border-radius:12px;background:#fffefaf2}.clock-focus .actions button{min-width:0;font-size:12px;min-height:44px;padding:10px 12px}.clock-focus #message{position:fixed;bottom:max(12px,env(safe-area-inset-bottom));left:12px;right:12px;z-index:45;margin:0;text-align:center}@media(max-width:600px){main{padding:18px 12px 28px}h1{font-size:28px}header{align-items:flex-start}header p{font-size:12px}.card{padding:16px}.clocks{grid-template-columns:1fr}.clock{min-height:175px}.clock strong{font-size:64px}.row{gap:12px}.presets button{flex:1 1 28%;font-size:14px}footer{flex-wrap:wrap}.row label{min-width:0}}</style></head>
+<body><main><header><div><h1>♞ Chess Clock</h1><p>Ad hoc games. One device. Ready when you are.</p></div><button id="download-clock" type="button">Download</button></header>
+<section id="clock" class="card" aria-label="Chess clock">
+<div id="clock-settings"><div class="row"><label>White player (optional)<input id="clock-white" maxlength="40" placeholder="White" autocomplete="off"></label><label>Black player (optional)<input id="clock-black" maxlength="40" placeholder="Black" autocomplete="off"></label></div>
+<label>Clock mode<select id="clock-mode"><option value="game">Game time per player</option><option value="move">Maximum time per move</option></select></label>
+<div id="game-time-settings"><div class="presets"><button data-min="1" data-inc="0">1 + 0</button><button data-min="3" data-inc="2">3 + 2</button><button data-min="5" data-inc="0">5 + 0</button><button data-min="10" data-inc="0">10 + 0</button><button data-min="15" data-inc="10">15 + 10</button></div><div class="row"><label>Minutes per player<input id="minutes" type="number" inputmode="numeric" value="5" min="1" max="180" step="1"></label><label>Increment (seconds)<input id="increment" type="number" inputmode="numeric" value="0" min="0" max="60" step="1"></label></div></div>
+<div id="move-time-settings" hidden><div class="row"><label>Maximum seconds per move<input id="move-seconds" type="number" inputmode="numeric" value="60" min="1" max="3600" step="1"></label><label>Maximum game time (minutes)<input id="max-game-minutes" type="number" inputmode="numeric" value="10" min="0" max="360" step="1"></label></div><p class="fine">Fresh time each move. The game limit is shared by both players. Enter 0 for no game limit. Both timers pause together.</p></div></div>
+<div class="game-timer" id="game-timer" hidden><span>GAME LEFT</span><b id="game-time">10:00</b></div>
+<div class="clocks"><button id="clock-0" class="clock" disabled><span id="label-0">WHITE</span><strong id="time-0">5:00</strong><small id="status-0">READY</small></button><button id="clock-1" class="clock dark" disabled><span id="label-1">BLACK</span><strong id="time-1">5:00</strong><small id="status-1">READY</small></button></div>
+<div class="actions"><button id="start-clock" class="primary">▶ Start · White to move</button><button id="pause-clock" class="primary" hidden>Ⅱ Pause</button><button id="resume-white" hidden>Resume White</button><button id="resume-black" hidden>Resume Black</button><button id="reset-clock">Reset game</button></div><p id="message" role="status" hidden></p>
+<div style="text-align:center;margin-top:18px"><button id="focus-clock" aria-pressed="false">Focus mode</button></div></section>
+<details><summary>How to use</summary><p>Enter names if you want, choose a mode and press Start. White moves first. After making a move on the board, tap your active clock to pass the turn. Only the active player’s time counts down.</p><p><b>Game time per player:</b> each player has their own time allowance. “3 + 2” means three minutes each, plus two seconds added after each completed move.</p><p><b>Maximum time per move:</b> the move allowance resets each turn. The optional game countdown covers both players combined and never resets on a turn switch. A game limit of 0 disables it.</p><p><b>Pause</b> freezes both timers. Resume the correct player. Focus mode fills the screen and turns White’s panel to face the opposite player. Use Exit focus to return.</p><p>When time expires, the clock stops. Agree the result on the board, then press New game. This clock does not record results or connect to a club.</p><p>Keep this page open and your device unlocked. Wake lock is requested where supported. Switching apps is not a pause; your device can suspend the page. Closing or reloading loses the unfinished game. Settings are remembered where browser storage is available.</p><p>Use Download to save a self-contained HTML copy for offline use. On phones, opening local HTML depends on your browser/file app; the web link is the simplest option.</p></details>
+<footer><span>No sign-in · No shared data · v1.0.0</span><span>Works offline as an HTML file</span></footer></main>
+<div id="confirm-overlay" class="confirm-overlay" hidden><section class="confirm-box" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-text"><h2 id="confirm-title">Reset game?</h2><p id="confirm-text"></p><div class="confirm-actions"><button id="confirm-cancel">Keep playing</button><button id="confirm-accept" class="primary">Reset game</button></div></section></div>
+<script>'use strict';
+const $=id=>document.getElementById(id),all=s=>[...document.querySelectorAll(s)];
+const uid=()=>globalThis.crypto?.randomUUID?.()||String(Date.now());
+const playerName=id=>id||'Player';
+let confirmation=null,wakeRequest=0,wake=null,busy=false,lastTap=-Infinity;
+let clock={times:[300000,300000],active:null,started:false,flag:null,saved:false,saving:false,mode:'game',minutes:5,increment:0,moveSeconds:60,gameRemaining:null,gameExpired:false};
+let localStore;try{localStore=globalThis.localStorage}catch{}
+function getStored(storage,key,fallback){try{return JSON.parse(storage?.getItem(key))||fallback}catch{return fallback}}
+function persist(key,value){try{localStore?.setItem(key,JSON.stringify(value))}catch{}}
+function showMessage(text,kind='error'){$('message').textContent=text;$('message').className=kind;$('message').hidden=!text;}
+function askConfirmation({title,text,label='Confirm',accept,cancel}){
+ if(confirmation)return;confirmation={accept,cancel,previous:document.activeElement};
+ $('confirm-title').textContent=title;$('confirm-text').textContent=text;$('confirm-accept').textContent=label;
+ $('confirm-overlay').hidden=false;$('confirm-cancel').focus();
+}
+function closeConfirmation(accepted){
+ if(!confirmation)return;const choice=confirmation;confirmation=null;$('confirm-overlay').hidden=true;
+ if(accepted)choice.accept?.();else choice.cancel?.();if(choice.previous?.isConnected)choice.previous.focus?.();
+}
+async function keepAwake(){
+ if(clock.active===null||wake&&!wake.released)return;const token=++wakeRequest;
+ try{const acquired=await navigator.wakeLock?.request('screen');if(token!==wakeRequest||clock.active===null){try{await acquired?.release()}catch{}}else wake=acquired;}catch{}
+}
+function releaseWake(){wakeRequest++;try{Promise.resolve(wake?.release()).catch(()=>{})}catch{}wake=null;}
+function readClockSettings(){
+ const mode=$('clock-mode').value==='move'?'move':'game',minutes=+$('minutes').value,increment=+$('increment').value,moveSeconds=+$('move-seconds').value,maxGameMinutes=+$('max-game-minutes').value;
+ const valid=mode==='move'?Number.isInteger(moveSeconds)&&moveSeconds>=1&&moveSeconds<=3600&&Number.isInteger(maxGameMinutes)&&maxGameMinutes>=0&&maxGameMinutes<=360&&$('max-game-minutes').value.trim()!=='':Number.isInteger(minutes)&&minutes>=1&&minutes<=180&&Number.isInteger(increment)&&increment>=0&&increment<=60;
+ if(!valid){showMessage(mode==='move'?'Enter 1–3600 seconds per move and 0–360 minutes for the game (0 means no game limit).':'Enter 1–180 minutes and an increment from 0 to 60 seconds.');return null;}
+ return {mode,minutes:mode==='game'?minutes:5,increment:mode==='game'?increment:0,moveSeconds:mode==='move'?moveSeconds:60,maxGameMinutes:mode==='move'?maxGameMinutes:0};
+}
+function clockBudget(s){return s.mode==='move'?s.moveSeconds*1000:s.minutes*60000;}
+function setModeUI(){const move=$('clock-mode').value==='move';$('game-time-settings').hidden=move;$('move-time-settings').hidden=!move;}
+function settingsChanged(){if(clock.started)return;setModeUI();if(resetClock(true))persist('adhoc-clock-settings-v1',{mode:$('clock-mode').value,minutes:$('minutes').value,increment:$('increment').value,moveSeconds:$('move-seconds').value,maxGameMinutes:$('max-game-minutes').value});}
+function settle(){
+ if(clock.active!==null){const side=clock.active,now=performance.now();
+ const elapsed=Math.min(Math.max(0,now-clock.stamp),clock.times[side],clock.gameRemaining??Infinity);clock.stamp=now;
+ clock.times[side]=Math.max(0,clock.times[side]-elapsed);
+ if(clock.gameRemaining!==null)clock.gameRemaining=Math.max(0,clock.gameRemaining-elapsed);
+ if(clock.times[side]===0||clock.gameRemaining===0){clock.active=null;clock.gameExpired=clock.gameRemaining===0;if(!clock.gameExpired)clock.flag=side;releaseWake();navigator.vibrate?.([250,100,250]);paintClock();}}
+ paintTimes();
+}
+function fmt(t){const s=Math.ceil(Math.max(0,t)/1000);return Math.floor(s/60)+':'+String(s%60).padStart(2,'0');}
+function paintTimes(){for(let i=0;i<2;i++)$('time-'+i).textContent=fmt(clock.times[i]);$('game-timer').hidden=clock.gameRemaining==null;$('game-time').textContent=fmt(clock.gameRemaining??0);$('game-timer').classList.toggle('expired',!!clock.gameExpired);}
+
+function paintClock(){
+ for(let i=0;i<2;i++){
+ const el=$('clock-'+i);el.disabled=clock.active!==i||!!confirmation;
+ el.classList.toggle('running',clock.active===i);el.classList.toggle('flagged',clock.flag===i||clock.gameExpired);
+ const name=clock.started?(i===0?clock.white:clock.black):$(i===0?'clock-white':'clock-black').value.trim();
+ $('label-'+i).textContent=(i===0?'WHITE':'BLACK')+(name?' · '+name:'');
+ $('status-'+i).textContent=clock.gameExpired?'GAME TIME EXPIRED':clock.flag===i?'TIME EXPIRED':clock.active===i?'YOUR MOVE · TAP TO SWITCH':clock.active!==null?'WAITING':clock.started?'PAUSED':'READY';
+ }
+ const ended=clock.flag!==null||clock.gameExpired;
+ $('start-clock').hidden=clock.started;$('pause-clock').hidden=clock.active===null;
+ $('resume-white').hidden=$('resume-black').hidden=!clock.started||clock.active!==null||ended;
+ $('reset-clock').textContent=ended?'New game':'Reset game';
+ all('#clock-settings input, #clock-settings select, #clock-settings button').forEach(n=>n.disabled=clock.started);
+ if(ended)showMessage(clock.gameExpired?'Maximum game time reached. Agree the result on the board.':(clock.flag===0?clock.white:clock.black)+' ran out of time. Agree the result on the board.','success');
+ paintTimes();
+}
+function startClock(){
+ if(clock.started||confirmation)return;const settings=readClockSettings();if(!settings)return;
+ const white=$('clock-white').value.trim()||'White',black=$('clock-black').value.trim()||'Black',budget=clockBudget(settings);
+ clock={...settings,times:[budget,budget],gameRemaining:settings.mode==='move'&&settings.maxGameMinutes>0?settings.maxGameMinutes*60000:null,gameExpired:false,active:0,stamp:performance.now(),started:true,flag:null,saved:false,saving:false,id:uid(),white,black};
+ lastTap=-Infinity;showMessage('');paintClock();keepAwake();
+}
+function tapClock(side){
+ if(clock.saving||confirmation||performance.now()-lastTap<250)return;settle();if(clock.active!==side)return;lastTap=performance.now();
+ if(clock.mode==='move'){clock.times[side]=clock.moveSeconds*1000;clock.times[1-side]=clock.moveSeconds*1000;}else clock.times[side]+=clock.increment*1000;
+ clock.active=1-side;clock.stamp=performance.now();navigator.vibrate?.(20);paintClock();
+}
+function pauseClock(){settle();clock.active=null;releaseWake();paintClock();}
+function resumeClock(side){if(!clock.started||clock.flag!==null||clock.gameExpired||clock.saved||clock.saving||confirmation||![0,1].includes(side))return;clock.active=side;clock.stamp=performance.now();paintClock();keepAwake();}
+function resetClock(force=false){
+ if(clock.saving||clock.started&&!clock.saved&&!force)return false;const settings=readClockSettings();if(!settings)return false;releaseWake();const budget=clockBudget(settings);
+ clock={...settings,times:[budget,budget],gameRemaining:settings.mode==='move'&&settings.maxGameMinutes>0?settings.maxGameMinutes*60000:null,gameExpired:false,active:null,stamp:0,started:false,flag:null,saved:false,saving:false,id:null,white:null,black:null};lastTap=-Infinity;showMessage('');paintClock();return true;
+}
+function requestReset(){
+ if(busy||clock.saving){showMessage('Wait for the current save to finish.');return;}
+ if(!clock.started||clock.saved){resetClock(true);return;}
+ const current=clock;settle();const previousSide=clock.active;pauseClock();
+ askConfirmation({title:'Reset this game?',text:'The clock will return to its starting time. The current clock times will be discarded.',label:'Reset game',accept:()=>resetClock(true),cancel:()=>{if(clock===current&&previousSide!==null)resumeClock(previousSide);else paintClock();}});paintClock();
+}
+
+function toggleFocus(){const on=!document.body.classList.contains('clock-focus');document.body.classList.toggle('clock-focus',on);$('focus-clock').textContent=on?'Exit focus':'Focus mode';$('focus-clock').setAttribute('aria-pressed',String(on));paintClock();}
+function closeFocus(){document.body.classList.remove('clock-focus');$('focus-clock').textContent='Focus mode';$('focus-clock').setAttribute('aria-pressed','false');}
+document.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.min&&!clock.started){$('minutes').value=b.dataset.min;$('increment').value=b.dataset.inc;settingsChanged();}});
+$('start-clock').onclick=startClock;$('clock-0').onclick=()=>tapClock(0);$('clock-1').onclick=()=>tapClock(1);$('pause-clock').onclick=pauseClock;
+$('resume-white').onclick=()=>resumeClock(0);$('resume-black').onclick=()=>resumeClock(1);$('reset-clock').onclick=()=>{if(clock.flag!==null||clock.gameExpired)resetClock(true);else requestReset()};
+$('focus-clock').onclick=toggleFocus;
+for(const id of ['minutes','increment','clock-mode','move-seconds','max-game-minutes'])$(id).onchange=settingsChanged;
+for(const id of ['clock-white','clock-black'])$(id).oninput=()=>{if(!clock.started)paintClock()};
+$('confirm-accept').onclick=()=>closeConfirmation(true);$('confirm-cancel').onclick=()=>closeConfirmation(false);
+$('confirm-overlay').onclick=e=>{if(e.target===$('confirm-overlay'))closeConfirmation(false)};
+document.addEventListener('keydown',e=>{if(confirmation){if(e.key==='Escape'){e.preventDefault();closeConfirmation(false)}else if(e.key==='Tab'){e.preventDefault();(document.activeElement===$('confirm-cancel')?$('confirm-accept'):$('confirm-cancel')).focus()}}else if(e.key==='Escape'&&document.body.classList.contains('clock-focus'))closeFocus()});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible'){settle();if(clock.active!==null)keepAwake()}});
+window.addEventListener('beforeunload',e=>{if(clock.started&&clock.flag===null&&!clock.gameExpired){e.preventDefault();e.returnValue=''}});
+$('download-clock').onclick=()=>{const html='<!doctype html>\n'+document.documentElement.outerHTML;
+ const clean=new DOMParser().parseFromString(html,'text/html');clean.body.classList.remove('clock-focus');clean.getElementById('confirm-overlay').hidden=true;clean.getElementById('message').hidden=true;
+ clean.querySelectorAll('input,select,button').forEach(n=>n.removeAttribute('disabled'));
+ clean.getElementById('start-clock').hidden=false;for(const id of ['pause-clock','resume-white','resume-black'])clean.getElementById(id).hidden=true;
+ clean.getElementById('focus-clock').textContent='Focus mode';clean.getElementById('focus-clock').setAttribute('aria-pressed','false');
+ const url=URL.createObjectURL(new Blob(['<!doctype html>\n'+clean.documentElement.outerHTML],{type:'text/html;charset=utf-8'}));const a=document.createElement('a');a.href=url;a.download='Chess-Clock.html';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+const prefs=getStored(localStore,'adhoc-clock-settings-v1',null);
+if(prefs){$('clock-mode').value=prefs.mode==='move'?'move':'game';for(const [id,key] of [['minutes','minutes'],['increment','increment'],['move-seconds','moveSeconds'],['max-game-minutes','maxGameMinutes']])if(prefs[key]!=null&&Number.isFinite(Number(prefs[key])))$(id).value=String(prefs[key]);}
+setModeUI();if(!resetClock(true)){$('clock-mode').value='game';$('minutes').value='5';$('increment').value='0';$('move-seconds').value='60';$('max-game-minutes').value='10';setModeUI();resetClock(true)}
+setInterval(()=>{if(clock.active!==null)settle()},50);
+</script></body></html>
